@@ -11,7 +11,9 @@ declare module 'vue' {
     IconTablerHome: typeof import('~icons/tabler/home')['default']
     IconTablerLoader2: typeof import('~icons/tabler/loader2')['default']
     IconTablerSpinner: typeof import('~icons/tabler/spinner')['default']
+    Input: typeof import('./src/components/ui/Input.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Switch: typeof import('./src/components/ui/Switch.vue')['default']
   }
 }

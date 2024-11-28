@@ -1,5 +1,6 @@
-import Button from '@/components/ui/Button.vue'
+import Button, { type IProps} from '@/components/ui/Button.vue'
 import type { Meta, StoryFn } from '@storybook/vue3';
+import IconTablerHome from '~icons/tabler/home'
 
 export default {
   title: 'Components/Button',
@@ -15,9 +16,6 @@ export default {
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
     rounded: { control: 'select', options: ['none', 'sm', 'md', 'lg', 'full'] },
     type: { control: 'select', options: ['button', 'submit', 'reset'] },
-    prefix: { control: 'text' },
-    suffix: { control: 'text' },
-    default: { control: 'text' },
   },
 } as Meta<typeof Button>;
 
@@ -29,23 +27,23 @@ const Template: StoryFn<typeof Button> = (args) => ({
   template: `
     <Button v-bind="args">
       <template v-if="args.prefix" #prefix>
-        {{ args.prefix }}
+        <Component :is="args.prefix()" />
       </template>
 
       {{ args.label }}
 
       <template v-if="args.suffix" #suffix>
-        {{ args.suffix }}
+        <Component :is="args.suffix()" />
       </template>
     </Button>`,
 });
 
-const defaultArgs = {
+const defaultArgs: IProps = {
   label: 'Button',
   rounded: 'md',
   size: 'md',
   type: 'button'
-} as const
+}
 
 export const Primary = Template.bind({})
 Primary.args = {
@@ -71,8 +69,22 @@ Success.args = {
   ...defaultArgs
 };
 
-export const danger = Template.bind({})
-danger.args = {
+export const Danger = Template.bind({})
+Danger.args = {
   variant: 'danger',
   ...defaultArgs
 };
+
+export const PrefixIcon = Template.bind({})
+PrefixIcon.args = {
+  variant: 'primary',
+  prefix: () => IconTablerHome,
+  ...defaultArgs
+}
+
+export const SuffixIcon = Template.bind({})
+SuffixIcon.args = {
+  variant: 'primary',
+  suffix: () => IconTablerHome,
+  ...defaultArgs
+}

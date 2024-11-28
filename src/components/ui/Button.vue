@@ -1,15 +1,25 @@
 <script setup lang="ts">
+import type { ButtonType, Variant, Size, Rounded } from '@/types'
+import { useProvider } from '@/components/ui/provider'
+
 export interface IProps {
-  type?: 'button' | 'submit' | 'reset'
+  /**
+   * General Props
+   */
   disabled?: boolean
-  loading?: boolean
-  variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning'
+  variant?: Variant
   outline?: boolean
-  rounded?: 'sm' | 'md' | 'lg' | 'full' | 'none'
+  rounded?:  Rounded
+  size?: Size
+  label?: string
+
+  /**
+   * Specific Props
+   */
+  type?: ButtonType
+  loading?: boolean
   text?: boolean
   link?: boolean
-  size?: 'sm' | 'md' | 'lg'
-  label?: string
 }
 
 const props = withDefaults(defineProps<IProps>(), {
@@ -24,6 +34,8 @@ const props = withDefaults(defineProps<IProps>(), {
   size: 'md',
   label: 'Button',
 })
+
+const { setDisabled, setRounded, setSize } = useProvider()
 
 const setVariant = computed<string>(() => {
   switch (props.variant) {
@@ -59,29 +71,6 @@ const setVariant = computed<string>(() => {
   }
   }
 })
-
-const setRounded = computed<string>(() => {
-  switch (props.rounded) {
-  case 'sm': return 'rounded-sm'
-  case 'md': return 'rounded-md'
-  case 'lg': return 'rounded-xl'
-  case 'full': return 'rounded-full'
-  case 'none': return 'rounded-none'
-  }
-})
-
-const setDisabled = computed<string>(() => {
-  if (props.disabled || props.loading) return 'opacity-50 cursor-not-allowed'
-  return ''
-})
-
-const setSize = computed<string>(() => {
-  switch (props.size) {
-  case 'sm': return 'text-sm'
-  case 'md': return 'text-md'
-  case 'lg': return 'text-xl'
-  }
-})
 </script>
 
 
@@ -89,7 +78,7 @@ const setSize = computed<string>(() => {
   <button
     v-bind="$attrs"
     class="px-4 py-2 transition-all ease-in-out duration-500 text-ellipsis text-pretty flex items-center justify-center gap-2"
-    :class="[setVariant, setRounded, setDisabled, setSize]"
+    :class="[setVariant, setRounded({ rounded }), setDisabled({ disabled, loading }), setSize({ size })]"
     :disabled="disabled || loading"
     :type="type"
   >
