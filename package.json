@@ -1,8 +1,13 @@
 {
-  "name": "vue3-tw-base",
-  "version": "0.0.0",
-  "private": true,
+  "name": "@wildanrizky/component-schema",
+  "version": "1.0.0",
   "type": "module",
+  "description": "Component Schema Form Builder Vue 3",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Wildan Rizky",
+  "keywords": ["vue", "vue3", "plugin", "form", "typescript", "builder", "form builder", "component"],
+  "license": "MIT",
   "scripts": {
     "dev": "npm run build:icons && vite --host",
     "build": "run-p type-check \"build-only {@}\" --",
